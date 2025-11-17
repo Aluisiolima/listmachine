@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Qrcode;
+use App\Models\RolesQrcode;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -62,5 +63,10 @@ class QrcodePolicy
     public function forceDelete(User $user, Qrcode $qrcode): bool
     {
         return false;
+    }
+
+    public function check_level(Qrcode $qrcode, RolesQrcode $rolesQrcode): bool 
+    {
+        return $qrcode->role?->id === $rolesQrcode->id;
     }
 }

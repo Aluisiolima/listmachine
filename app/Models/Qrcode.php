@@ -17,4 +17,9 @@ class Qrcode extends Model
         "roles_id", 
         "is_ativo"
     ];
+
+    public function role() 
+    {
+        return $this->belongsTo(RolesQrcode::class, 'roles_id');
+    }
 }

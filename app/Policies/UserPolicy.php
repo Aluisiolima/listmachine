@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\RolesUser;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -61,5 +62,10 @@ class UserPolicy
     public function forceDelete(User $user, User $model): bool
     {
         return false;
+    }
+
+    public function check_level(User $user, RolesUser $rolesUser): bool
+    {
+        return $user->role?->id === $rolesUser->id;
     }
 }
