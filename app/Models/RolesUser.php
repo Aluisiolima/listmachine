@@ -10,7 +10,7 @@ class RolesUser extends Model
     /** @use HasFactory<\Database\Factories\RolesUserFactory> */
     use HasFactory;
 
-    protected $table = "roles_user";
+    protected $table = "roles_users";
 
     protected $fillable = [
         "nome",

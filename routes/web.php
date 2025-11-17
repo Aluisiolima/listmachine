@@ -1,8 +1,10 @@
 <?php
 
+use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
+use App\Models\RolesUser;
 
 Route::get('/', function () {
     return Inertia::render('welcome', [
@@ -12,8 +14,16 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+        $user = auth()->user();
+        $roleAdmin = RolesUser::find(1);
+
+        $policy = new UserPolicy();
+
+        return Inertia::render('dashboard', [
+            'isAdmin' => $policy->check_level($user, $roleAdmin),
+        ]);
+        
+})->name('dashboard');
 });
 
 require __DIR__.'/settings.php';
