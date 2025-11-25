@@ -1,8 +1,10 @@
-import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
+import ButtonIcon from '@/components/button-icon';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
+import { Plus } from 'lucide-react'
+import { ComputerCard } from './computer/computer-card';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -13,35 +15,19 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 type ProsDashboard = {
     isAdmin : boolean
+    computers: []
+    component: string
 }
 
-export default function Dashboard({ isAdmin } : ProsDashboard) {
+export default function Dashboard({ isAdmin, computers, component} : ProsDashboard) {
+    const components: Record<string, React.ReactNode> = {
+        "computer-card": <ComputerCard isAdmin={isAdmin} computers={computers} childComponent={<ButtonIcon Icon={Plus} href='/computer'></ButtonIcon>}/>,
+    };
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
-            <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                    {isAdmin === true ? (
-                        <>
-                            <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                                <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-                            </div>
-
-                            <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                                <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-                            </div>
-
-                            <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                                <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-                            </div>
-                        </>
-                    ) : <></>}
-
-                </div>
-                <div className="relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
-                    <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-                </div>
-            </div>
+            {components[component]}
         </AppLayout>
     );
 }

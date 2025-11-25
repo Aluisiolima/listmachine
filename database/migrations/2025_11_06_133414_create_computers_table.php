@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer("armazenamento_gb");
             $table->string("sistema_operacional");
             $table->string("status");
-            $table->text("observacoes");
+            $table->text("observacoes")->nullable();
             $table->timestamps();
         });
 

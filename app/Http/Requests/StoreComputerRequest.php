@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreComputerRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StoreComputerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -22,7 +23,14 @@ class StoreComputerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nome'               => 'required|string|max:255',
+            'locations_id'       => 'required|integer|exists:locations,id',
+            'processador'        => 'required|string|max:255',
+            'memoria_ram_gb'     => 'required|integer|min:1',
+            'armazenamento_gb'   => 'required|integer|min:1',
+            'sistema_operacional'=> 'required|string|max:255',
+            'status'             => 'required|string|max:100',
+            'observacoes'        => 'nullable|string|max:1000',
         ];
     }
 }

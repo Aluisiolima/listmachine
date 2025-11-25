@@ -1,10 +1,9 @@
 <?php
 
-use App\Policies\UserPolicy;
+use App\Http\Controllers\ComputerController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
-use App\Models\RolesUser;
 
 Route::get('/', function () {
     return Inertia::render('welcome', [
@@ -14,16 +13,12 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
-        $user = auth()->user();
-        $roleAdmin = RolesUser::find(1);
+        return redirect('dashboard/computer');
+    })->name('dashboard');
 
-        $policy = new UserPolicy();
-
-        return Inertia::render('dashboard', [
-            'isAdmin' => $policy->check_level($user, $roleAdmin),
-        ]);
-        
-})->name('dashboard');
+    Route::get('dashboard/computer', [ComputerController::class, 'index'])->name('computer.index');
+    Route::get('computer', [ComputerController::class, 'create'])->name('computer.create');
+    Route::post('computer', [ComputerController::class, 'store'])->name('computer.store');
 });
 
 require __DIR__.'/settings.php';

@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreComputerRequest;
 use App\Http\Requests\UpdateComputerRequest;
 use App\Models\Computer;
+use App\Models\Locations;
+use App\Models\RolesUser;
+use App\Policies\UserPolicy;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class ComputerController extends Controller
 {
@@ -13,7 +18,16 @@ class ComputerController extends Controller
      */
     public function index()
     {
-        //
+        $roleAdmin = RolesUser::find(1);
+        $computers = Computer::all();
+
+        $policy = new UserPolicy();
+
+        return Inertia::render('dashboard', [
+            'isAdmin' => $policy->check_level(Auth::user(), $roleAdmin),
+            'computers' => $computers,
+            'component' => 'computer-card'
+        ]);
     }
 
     /**
@@ -21,7 +35,9 @@ class ComputerController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('computer/computer',
+        ['locais' => Locations::select('id', 'nome')->get()]
+        );
     }
 
     /**
@@ -29,7 +45,8 @@ class ComputerController extends Controller
      */
     public function store(StoreComputerRequest $request)
     {
-        //
+        Computer::create($request->validated());
+        return redirect()->route('computer.index');
     }
 
     /**

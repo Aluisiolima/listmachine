@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             RolesUserSeeder::class,
             RolesQrcodeSeeder::class,
             UserSeeder::class,
+            LocationsSeeder::class,
         ]);
     }
 }

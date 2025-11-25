@@ -13,7 +13,7 @@ class Computer extends Model
 
     protected $fillable = [
         "nome",
-        "localizacao_id",
+        "locations_id",
         "processador",
         "memoria_ram_gb",
         "armazenamento_gb",
