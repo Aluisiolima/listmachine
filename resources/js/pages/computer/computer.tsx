@@ -1,6 +1,6 @@
 import InputError from "@/components/input-error";
 import AuthLayout from "@/layouts/auth-layout";
-import { Form, Head, router } from '@inertiajs/react';
+import { Form, Head } from '@inertiajs/react';
 import { store } from "@/routes/computer";
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

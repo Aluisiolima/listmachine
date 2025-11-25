@@ -19,6 +19,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard/computer', [ComputerController::class, 'index'])->name('computer.index');
     Route::get('computer', [ComputerController::class, 'create'])->name('computer.create');
     Route::post('computer', [ComputerController::class, 'store'])->name('computer.store');
+    Route::delete('computer/{id}', [ComputerController::class, 'destroy'])->name('computer.destroy');
 });
 
 require __DIR__.'/settings.php';

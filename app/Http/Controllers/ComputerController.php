@@ -76,8 +76,11 @@ class ComputerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Computer $computer)
+    public function destroy(int $id)
     {
-        //
+        Computer::find($id)->delete();
+
+        return redirect()->route('computer.index')
+                ->with('success', 'Computador removido com sucesso!');
     }
 }

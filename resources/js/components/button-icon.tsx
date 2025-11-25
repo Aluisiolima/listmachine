@@ -10,7 +10,7 @@ export default function ButtonIcon({ href, Icon }: ProsButtonIcon) {
                 fixed bottom-6 right-6
                 bg-green-600 text-white
                 p-6 rounded-full
-                shadow-xl
+                shadow-xl z-11
                 hover:bg-green-700 transition
                 flex items-center justify-center
             "
