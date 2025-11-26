@@ -65,7 +65,7 @@ export default function ComputerShow({ computer }: ProsComputerShow) {
                         </div>
 
                         <div>
-                            <dt className="text-xs text-gray-500">Local (locations_id)</dt>
+                            <dt className="text-xs text-gray-500">Local</dt>
                             <dd className="mt-1 text-sm">{computer?.locations.nome ?? '-'}</dd>
                         </div>
 
@@ -86,78 +86,76 @@ export default function ComputerShow({ computer }: ProsComputerShow) {
                     </dl>
                 </div>
 
-                {/* Coluna lateral com contagens rápidas */}
                 <aside className="space-y-4">
-                <div className="rounded-2xl border p-4">
-                    <h3 className="text-sm font-medium">Componentes de hardware</h3>
-                    <p className="mt-2 text-3xl font-semibold">{computer?.hardware_components?.length ?? 0}</p>
-                </div>
+                    <div className="rounded-2xl border p-4">
+                        <h3 className="text-sm font-medium">Componentes de hardware</h3>
+                        <p className="mt-2 text-3xl font-semibold">{computer?.hardware_components?.length ?? 0}</p>
+                    </div>
 
-                <div className="rounded-2xl border p-4">
-                    <h3 className="text-sm font-medium">Registros de manutenção</h3>
-                    <p className="mt-2 text-3xl font-semibold">{computer?.maintenance_records?.length ?? 0}</p>
-                </div>
+                    <div className="rounded-2xl border p-4">
+                        <h3 className="text-sm font-medium">Registros de manutenção</h3>
+                        <p className="mt-2 text-3xl font-semibold">{computer?.maintenance_records?.length ?? 0}</p>
+                    </div>
 
-                <div className="rounded-2xl border p-4">
-                    <h3 className="text-sm font-medium">Softwares</h3>
-                    <p className="mt-2 text-3xl font-semibold">{computer?.software?.length ?? 0}</p>
-                </div>
+                    <div className="rounded-2xl border p-4">
+                        <h3 className="text-sm font-medium">Softwares</h3>
+                        <p className="mt-2 text-3xl font-semibold">{computer?.software?.length ?? 0}</p>
+                    </div>
                 </aside>
             </div>
 
-            {/* Listas detalhadas abaixo */}
             <div className="mt-8 grid gap-6 md:grid-cols-3">
                 <section className="md:col-span-1 rounded-2xl border p-4">
-                <h4 className="font-medium mb-3">Hardware</h4>
-                {computer?.hardware_components && computer.hardware_components.length > 0 ? (
-                    <ul className="space-y-3">
-                    {computer.hardware_components.map((h) => (
-                        <li key={h.id} className="rounded-lg border p-3">
-                        <div className="flex items-center justify-between">
-                            <div>
-                            <div className="font-medium">{h.modelo}</div>
-                            {h.status && <div className="text-sm text-gray-500">Modelo: {h.status}</div>}
-                            {h.capacidade && <div className="text-sm text-gray-500">Capacidade: {h.capacidade}</div>}
+                    <h4 className="font-medium mb-3">Hardware</h4>
+                    {computer?.hardware_components && computer.hardware_components.length > 0 ? (
+                        <ul className="space-y-3">
+                        {computer.hardware_components.map((h) => (
+                            <li key={h.id} className="rounded-lg border p-3">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                <div className="font-medium">{h.modelo}</div>
+                                {h.status && <div className="text-sm text-gray-500">Modelo: {h.status}</div>}
+                                {h.capacidade && <div className="text-sm text-gray-500">Capacidade: {h.capacidade}</div>}
+                                </div>
                             </div>
-                        </div>
-                        </li>
-                    ))}
-                    </ul>
-                ) : (
-                    <p className="text-sm text-gray-500">Nenhum componente cadastrado.</p>
-                )}
+                            </li>
+                        ))}
+                        </ul>
+                    ) : (
+                        <p className="text-sm text-gray-500">Nenhum componente cadastrado.</p>
+                    )}
                 </section>
 
                 <section className="md:col-span-1 rounded-2xl border p-4">
-                <h4 className="font-medium mb-3">Manutenções</h4>
-                {computer?.maintenance_records && computer.maintenance_records.length > 0 ? (
-                    <ul className="space-y-3">
-                    {computer.maintenance_records.map((m) => (
-                        <li key={m.id} className="rounded-lg border p-3">
-                        <div className="text-sm font-medium">{formatDate(m.created_at)}</div>
-                        <div className="text-sm text-gray-700">{m.descricao}</div>
-                        {m.user_id && <div className="text-xs text-gray-500 mt-1">Realizado por: {m.user_id}</div>}
-                        </li>
-                    ))}
-                    </ul>
-                ) : (
-                    <p className="text-sm text-gray-500">Sem registros de manutenção.</p>
-                )}
+                    <h4 className="font-medium mb-3">Manutenções</h4>
+                    {computer?.maintenance_records && computer.maintenance_records.length > 0 ? (
+                        <ul className="space-y-3">
+                        {computer.maintenance_records.map((m) => (
+                            <li key={m.id} className="rounded-lg border p-3">
+                            <div className="text-sm font-medium">{formatDate(m.created_at)}</div>
+                            <div className="text-sm text-gray-700">{m.descricao}</div>
+                            {m.user_id && <div className="text-xs text-gray-500 mt-1">Realizado por: {m.user_id}</div>}
+                            </li>
+                        ))}
+                        </ul>
+                    ) : (
+                        <p className="text-sm text-gray-500">Sem registros de manutenção.</p>
+                    )}
                 </section>
 
                 <section className="md:col-span-1 rounded-2xl border p-4">
-                <h4 className="font-medium mb-3">Software</h4>
-                {computer?.software && computer.software.length > 0 ? (
-                    <ul className="space-y-3">
-                    {computer.software.map((s) => (
-                        <li key={s.id} className="rounded-lg border p-3">
-                        <div className="font-medium">{s.nome}</div>
-                        </li>
-                    ))}
-                    </ul>
-                ) : (
-                    <p className="text-sm text-gray-500">Nenhum software cadastrado.</p>
-                )}
+                    <h4 className="font-medium mb-3">Software</h4>
+                    {computer?.software && computer.software.length > 0 ? (
+                        <ul className="space-y-3">
+                        {computer.software.map((s) => (
+                            <li key={s.id} className="rounded-lg border p-3">
+                            <div className="font-medium">{s.nome}</div>
+                            </li>
+                        ))}
+                        </ul>
+                    ) : (
+                        <p className="text-sm text-gray-500">Nenhum software cadastrado.</p>
+                    )}
                 </section>
             </div>
         </div>
