@@ -20,6 +20,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('computer', [ComputerController::class, 'create'])->name('computer.create');
     Route::post('computer', [ComputerController::class, 'store'])->name('computer.store');
     Route::delete('computer/{id}', [ComputerController::class, 'destroy'])->name('computer.destroy');
+    Route::get('computer/{id}', [ComputerController::class, 'show'])->name('computer.show');
 });
 
 require __DIR__.'/settings.php';

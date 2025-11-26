@@ -1,8 +1,9 @@
 import { PlaceholderPattern } from "@/components/ui/placeholder-pattern";
 import { ReactNode } from "react";
 import { ButtonDelete } from "@/components/button-delete";
-import { destroy } from "@/routes/computer";
+import { destroy, show } from "@/routes/computer";
 import { Computers } from "@/types/entity";
+import { router } from "@inertiajs/react";
 
 type ProsComputerCard = {
     isAdmin : boolean
@@ -19,6 +20,7 @@ export const ComputerCard: React.FC<ProsComputerCard> = ({ isAdmin, computers, c
                     <div
                         key={computer.id}
                         className="relative aspect-video  rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"
+                        onClick={() => router.visit(show.url(computer.id))}
                     >
                         <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
 

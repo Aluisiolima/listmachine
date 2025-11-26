@@ -52,9 +52,20 @@ class ComputerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Computer $computer)
+    public function show(int $id)
     {
-        //
+        $computer = Computer::with([
+            'hardware_components',
+            'maintenance_records',
+            'software',
+            'locations'
+        ])->find($id);
+
+        if ($computer == null) return redirect('dashboard');
+
+        return Inertia::render('computer/computer-show', [
+            'computer' => $computer
+        ]);
     }
 
     /**

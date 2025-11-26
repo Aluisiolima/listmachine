@@ -5,6 +5,7 @@ import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import { Plus } from 'lucide-react'
 import { ComputerCard } from './computer/computer-card';
+import { Computers } from '@/types/entity';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -15,7 +16,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 type ProsDashboard = {
     isAdmin : boolean
-    computers: []
+    computers: Computers[]
     component: string
 }
 

@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Locations extends Model
 {
-    /** @use HasFactory<\Database\Factories\LocationsFactory> */
     use HasFactory;
 
     protected $table = "locations";
@@ -16,4 +15,9 @@ class Locations extends Model
         "nome",
         "descricao"
     ];
+
+    public function computers()
+    {
+        return $this->hasMany(Computer::class, 'locations_id', 'id');
+    }
 }

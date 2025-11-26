@@ -22,6 +22,7 @@ export interface Computers {
     hardware_components?: HardwareComponents[];
     maintenance_records?: MaintenanceRecords[];
     software?: Software[];
+    locations: Locations;
 };
 
 export interface HardwareComponents {
@@ -95,4 +96,5 @@ export interface Users {
     created_at?: string | null;
     updated_at?: string | null;
     roles_id: number;
+    role: RolesUsers
 };

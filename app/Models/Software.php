@@ -13,7 +13,7 @@ class Software extends Model
     protected $table = "software";
 
     protected $fillable = [
-        "computador_id",
+        "computer_id",
         "nome",
         "observacoes"
     ];
