@@ -9,7 +9,11 @@ export function ButtonDelete({ url }: ProsButtonDelete) {
     const { delete: destroy, processing } = useForm();
 
     function handleDelete() {
-        if (confirm('Tem certeza que deseja excluir?')) destroy(url);
+        if (confirm('Tem certeza que deseja excluir?')) {
+            destroy(url, {
+                preserveScroll: true
+            });
+        };
     }
 
     return (

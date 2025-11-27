@@ -9,7 +9,6 @@ export interface ActiveLogs {
 export interface Computers {
     id: number;
     nome: string;
-    locations_id: number;
     processador: string;
     memoria_ram_gb: number;
     armazenamento_gb: number;
