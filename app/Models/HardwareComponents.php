@@ -19,4 +19,9 @@ class HardwareComponents extends Model
         "capacidade",
         "status"
     ];
+
+    public function computer()
+    {
+        return $this->belongsTo(Computer::class);
+    }
 }

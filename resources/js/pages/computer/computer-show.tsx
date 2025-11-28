@@ -1,9 +1,11 @@
 import { ButtonDelete } from '@/components/button-delete';
 import ButtonIcon from '@/components/button-icon';
 import { index, edit, destroy } from '@/routes/computer';
+import { destroy as hardware_destroy, edit as hardware_edit } from '@/routes/hardware';
+import { create } from '@/routes/hardware'
 import { Computers } from '@/types/entity';
 import { Link } from '@inertiajs/react';
-import { Plus } from 'lucide-react';
+import { Plus, Edit } from 'lucide-react';
 
 type ProsComputerShow = {
     computer: Computers;
@@ -34,6 +36,7 @@ export default function ComputerShow({ computer, isAdmin}: ProsComputerShow) {
                     {isAdmin &&
                     <> 
                         <Link href={edit.url(computer?.id)} className="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm text-white hover:opacity-90">
+                            <Edit size={16} className="m-1" />
                             Editar
                         </Link>
                         <div className="fixed z-12 bottom-1 right-2 z-10">
@@ -117,16 +120,28 @@ export default function ComputerShow({ computer, isAdmin}: ProsComputerShow) {
             <div className="mt-8 grid gap-6 md:grid-cols-3 relative">
                 <section className="md:col-span-1 rounded-2xl border p-4 relative">
                     <h4 className="font-medium mb-3">Hardware</h4>
-                    <ButtonIcon Icon={Plus} href={''} isAbsolute={true} top={10} right={10} size={30}/>
+                    <ButtonIcon Icon={Plus} href={create.url(computer.id)} isAbsolute={true} top={10} right={10} size={30}/>
                     {computer?.hardware_components && computer.hardware_components.length > 0 ? (
                         <ul className="space-y-3">
                         {computer.hardware_components.map((h) => (
                             <li key={h.id} className="rounded-lg border p-3">
                             <div className="flex items-center justify-between">
-                                <div>
-                                <div className="font-medium">{h.modelo}</div>
-                                {h.status && <div className="text-sm text-gray-500">Modelo: {h.status}</div>}
-                                {h.capacidade && <div className="text-sm text-gray-500">Capacidade: {h.capacidade}</div>}
+                                <div style={{ width: '100%'}}>
+                                    <div className="font-medium w-100">{h.modelo}</div>
+                                    {h.status && <div className="text-sm text-gray-500">Modelo: {h.status}</div>}
+                                    {h.capacidade && <div className="text-sm text-gray-500">Capacidade: {h.capacidade} (GB)</div>}
+                                    
+                                    {isAdmin && (
+                                        <div className="flex justify-between gap-2 mt-2 ">
+                                            <Link
+                                                href={hardware_edit.url(h.id)}
+                                                className="inline-flex justify-between rounded-md bg-blue-600 px-2 py-1 text-sm text-white hover:opacity-90"
+                                            >
+                                                <Edit size={16} className="m-1" />
+                                            </Link>
+                                            <ButtonDelete url={hardware_destroy.url(h.id)} size={10}/>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             </li>
