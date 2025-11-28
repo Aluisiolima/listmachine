@@ -64,16 +64,24 @@ class ComputerController extends Controller
         if ($computer == null) return redirect('dashboard');
 
         return Inertia::render('computer/computer-show', [
-            'computer' => $computer
+            'computer' => $computer,
+            'isAdmin' => (new UserPolicy())->check_level(Auth::user(), RolesUser::find(1))
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Computer $computer)
+    public function edit(int $id)
     {
-        //
+        $computer = Computer::find($id);
+
+        if ($computer == null) return redirect('dashboard');
+
+        return Inertia::render('computer/computer-edit', [
+            'computer' => $computer,
+            'locais' => Locations::select('id', 'nome')->get()
+        ]);
     }
 
     /**
@@ -81,7 +89,10 @@ class ComputerController extends Controller
      */
     public function update(UpdateComputerRequest $request, Computer $computer)
     {
-        //
+        $computer->update($request->validated());
+
+        return redirect()->route('computer.show', ['id' => $computer->id])
+                ->with('success', 'Computador atualizado com sucesso!');
     }
 
     /**

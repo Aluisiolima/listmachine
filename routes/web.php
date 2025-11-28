@@ -16,12 +16,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return redirect('dashboard/computer');
     })->name('dashboard');
 
+    # Computer Management Routes
     Route::get('dashboard/computer/', [ComputerController::class, 'index'])->name('computer.index');
     Route::get('computer/create/', [ComputerController::class, 'create'])->name('computer.create');
     Route::get('computer/{id}/show/', [ComputerController::class, 'show'])->name('computer.show');
     Route::post('computer/store/', [ComputerController::class, 'store'])->name('computer.store');
-
     Route::delete('computer/{id}/delete/', [ComputerController::class, 'destroy'])->name('computer.destroy');
+    Route::get('computer/{id}/edit/', [ComputerController::class, 'edit'])->name('computer.edit');
+    Route::put('computer/{computer}/update/', [ComputerController::class, 'update'])->name('computer.update');
 });
 
 require __DIR__.'/settings.php';

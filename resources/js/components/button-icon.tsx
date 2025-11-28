@@ -1,8 +1,23 @@
 type ProsButtonIcon = {
     href: string;
-    Icon: any
+    Icon: any;
+    isAbsolute?: boolean;
+    top?: number;
+    bottom?: number;
+    left?: number;
+    right?: number;
+    size?: number;
 }
-export default function ButtonIcon({ href, Icon }: ProsButtonIcon) {
+export default function ButtonIcon({ 
+    href, 
+    Icon, 
+    isAbsolute, 
+    bottom, 
+    left, 
+    right, 
+    top,
+    size
+}: ProsButtonIcon) {
     return (
         <a
             href={href}
@@ -14,8 +29,23 @@ export default function ButtonIcon({ href, Icon }: ProsButtonIcon) {
                 hover:bg-green-700 transition
                 flex items-center justify-center
             "
+            style={{
+                position: isAbsolute ? 'absolute' : 'fixed',
+                top: isAbsolute ? `${top}px` : '',
+                bottom: isAbsolute ? `${bottom}px` : '',
+                left: isAbsolute ? `${left}px` : '',
+                right: isAbsolute ? `${right}px` : '',
+                padding: isAbsolute ? `${2}px` : '',
+                width: isAbsolute ? `${size}px` : '',
+                height: isAbsolute ? `${size}px` : ''
+            }}
         >
-            <Icon className="w-6 h-6" />
+            <Icon className="w-6 h-6" 
+                style={{
+                    width: isAbsolute ? `${size}px` : '',
+                    height: isAbsolute ? `${size}px` : ''
+                }}
+            />
         </a>
     );
 }

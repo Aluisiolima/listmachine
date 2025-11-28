@@ -22,7 +22,7 @@ export const ComputerCard: React.FC<ProsComputerCard> = ({ isAdmin, computers, c
                         key={computer.id}
                         className="relative aspect-video  rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"
                     >
-                        <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
+                        {/* <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" /> */}
                         <div className=" size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" onClick={() => router.visit(show.url(computer.id))}>
                             <img 
                             src={Computador} 

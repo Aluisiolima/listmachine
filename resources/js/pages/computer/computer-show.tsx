@@ -1,11 +1,15 @@
-import { index } from '@/routes/computer';
+import { ButtonDelete } from '@/components/button-delete';
+import ButtonIcon from '@/components/button-icon';
+import { index, edit, destroy } from '@/routes/computer';
 import { Computers } from '@/types/entity';
 import { Link } from '@inertiajs/react';
+import { Plus } from 'lucide-react';
 
 type ProsComputerShow = {
     computer: Computers;
+    isAdmin: boolean;
 }
-export default function ComputerShow({ computer }: ProsComputerShow) {
+export default function ComputerShow({ computer, isAdmin}: ProsComputerShow) {
 
     function formatDate(date?: string | null) {
         if (!date) return '-';
@@ -27,9 +31,15 @@ export default function ComputerShow({ computer }: ProsComputerShow) {
                     <Link href={index.get()} className="inline-flex items-center rounded-md border px-3 py-2 text-sm hover:bg-gray-50">
                         Voltar
                     </Link>
-                    {/* <Link href={index.url('computer.edit', { computer: computer?.id })} className="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm text-white hover:opacity-90">
-                        Editar
-                    </Link> */}
+                    {isAdmin &&
+                    <> 
+                        <Link href={edit.url(computer?.id)} className="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm text-white hover:opacity-90">
+                            Editar
+                        </Link>
+                        <div className="fixed z-12 bottom-1 right-2 z-10">
+                            <ButtonDelete url={destroy.url(computer.id)} size={20}/>
+                        </div>
+                    </>}
                 </div>
             </div>
 
@@ -104,9 +114,10 @@ export default function ComputerShow({ computer }: ProsComputerShow) {
                 </aside>
             </div>
 
-            <div className="mt-8 grid gap-6 md:grid-cols-3">
-                <section className="md:col-span-1 rounded-2xl border p-4">
+            <div className="mt-8 grid gap-6 md:grid-cols-3 relative">
+                <section className="md:col-span-1 rounded-2xl border p-4 relative">
                     <h4 className="font-medium mb-3">Hardware</h4>
+                    <ButtonIcon Icon={Plus} href={''} isAbsolute={true} top={10} right={10} size={30}/>
                     {computer?.hardware_components && computer.hardware_components.length > 0 ? (
                         <ul className="space-y-3">
                         {computer.hardware_components.map((h) => (
@@ -126,8 +137,9 @@ export default function ComputerShow({ computer }: ProsComputerShow) {
                     )}
                 </section>
 
-                <section className="md:col-span-1 rounded-2xl border p-4">
+                <section className="md:col-span-1 rounded-2xl border p-4 relative">
                     <h4 className="font-medium mb-3">Manutenções</h4>
+                    <ButtonIcon Icon={Plus} href={''} isAbsolute={true} top={10} right={10} size={30}/>
                     {computer?.maintenance_records && computer.maintenance_records.length > 0 ? (
                         <ul className="space-y-3">
                         {computer.maintenance_records.map((m) => (
@@ -143,8 +155,9 @@ export default function ComputerShow({ computer }: ProsComputerShow) {
                     )}
                 </section>
 
-                <section className="md:col-span-1 rounded-2xl border p-4">
+                <section className="md:col-span-1 rounded-2xl border p-4 relative">
                     <h4 className="font-medium mb-3">Software</h4>
+                    <ButtonIcon Icon={Plus} href={''} isAbsolute={true} top={10} right={10} size={30}/>
                     {computer?.software && computer.software.length > 0 ? (
                         <ul className="space-y-3">
                         {computer.software.map((s) => (

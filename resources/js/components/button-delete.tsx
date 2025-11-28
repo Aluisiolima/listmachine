@@ -2,10 +2,11 @@ import { useForm } from '@inertiajs/react';
 import { Trash2 } from 'lucide-react';
 
 type ProsButtonDelete = {
-    url: string
+    url: string;
+    size?: number;
 }
 
-export function ButtonDelete({ url }: ProsButtonDelete) {
+export function ButtonDelete({ url, size}: ProsButtonDelete) {
     const { delete: destroy, processing } = useForm();
 
     function handleDelete() {
@@ -27,8 +28,11 @@ export function ButtonDelete({ url }: ProsButtonDelete) {
                 px-2 py-2 rounded-xl 
                 transition-all
             "
+            style={{
+                padding: size ? `${size}px` : "",
+            }}
         >
-            <Trash2 size={12} />
+            <Trash2 size={size ? size : 12} />
         </button>
     );
 }
