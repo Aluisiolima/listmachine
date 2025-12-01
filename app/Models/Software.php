@@ -17,4 +17,9 @@ class Software extends Model
         "nome",
         "observacoes"
     ];
+
+    public function computer()
+    {
+        return $this->belongsTo(Computer::class, 'computer_id');
+    }
 }

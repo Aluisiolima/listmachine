@@ -3,6 +3,7 @@ import ButtonIcon from '@/components/button-icon';
 import { index, edit, destroy } from '@/routes/computer';
 import { destroy as hardware_destroy, edit as hardware_edit, create as hardware_create } from '@/routes/hardware';
 import { destroy as maintenance_destroy, edit as maintenance_edit, create as maintenance_create } from '@/routes/maintenance';
+import { destroy as software_destroy, edit as software_edit, create as software_create } from '@/routes/software';
 import { } from '@/routes/hardware'
 import { Computers } from '@/types/entity';
 import { Link } from '@inertiajs/react';
@@ -184,12 +185,23 @@ export default function ComputerShow({ computer, isAdmin }: ProsComputerShow) {
 
                 <section className="md:col-span-1 rounded-2xl border p-4 relative">
                     <h4 className="font-medium mb-3">Software</h4>
-                    <ButtonIcon Icon={Plus} href={''} isAbsolute={true} top={10} right={10} size={30} />
+                    <ButtonIcon Icon={Plus} href={software_create.url(computer.id)} isAbsolute={true} top={10} right={10} size={30} />
                     {computer?.software && computer.software.length > 0 ? (
                         <ul className="space-y-3">
                             {computer.software.map((s) => (
                                 <li key={s.id} className="rounded-lg border p-3">
                                     <div className="font-medium">{s.nome}</div>
+                                    {isAdmin && (
+                                        <div className="flex justify-between gap-2 mt-2 ">
+                                            <Link
+                                                href={software_edit.url(s.id)}
+                                                className="inline-flex justify-between rounded-md bg-blue-600 px-2 py-1 text-sm text-white hover:opacity-90"
+                                            >
+                                                <Edit size={16} className="m-1" />
+                                            </Link>
+                                            <ButtonDelete url={software_destroy.url(s.id)} size={10} />
+                                        </div>
+                                    )}
                                 </li>
                             ))}
                         </ul>

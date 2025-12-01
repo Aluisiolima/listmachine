@@ -46,7 +46,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('software/create/{computer_id}/', [SoftwareController::class, 'create'])->name('software.create');
     Route::post('software/store/', [SoftwareController::class, 'store'])->name('software.store');
     Route::get('software/{id}/edit/', [SoftwareController::class, 'edit'])->name('software.edit');
-    Route::put('software/{softwareRecords}/update/', [SoftwareController::class, 'update'])->name('software.update');
+    Route::put('software/{software}/update/', [SoftwareController::class, 'update'])->name('software.update');
     Route::delete('software/{id}/delete/', [SoftwareController::class, 'destroy'])->name('software.destroy');
 });
 

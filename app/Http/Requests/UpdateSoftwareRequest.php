@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateSoftwareRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateSoftwareRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -22,7 +23,9 @@ class UpdateSoftwareRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'computer_id' => 'required|integer|exists:computers,id',
+            'nome'        => 'required|string|max:255',
+            'observacoes' => 'required|string|max:255',
         ];
     }
 }
