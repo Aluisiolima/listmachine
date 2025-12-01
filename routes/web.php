@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ComputerController;
 use App\Http\Controllers\HardwareComponentsController;
+use App\Http\Controllers\MaintenanceRecordsController;
+use App\Http\Controllers\SoftwareController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -32,6 +34,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('hardware/{id}/edit/', [HardwareComponentsController::class, 'edit'])->name('hardware.edit');
     Route::put('hardware/{hardwareComponents}/update/', [HardwareComponentsController::class, 'update'])->name('hardware.update');
     Route::delete('hardware/{id}/delete/', [HardwareComponentsController::class, 'destroy'])->name('hardware.destroy');
+
+    # Maintenance Records Management Routes
+    Route::get('maintenance/create/{computer_id}/', [MaintenanceRecordsController::class, 'create'])->name('maintenance.create');
+    Route::post('maintenance/store/', [MaintenanceRecordsController::class, 'store'])->name('maintenance.store');
+    Route::get('maintenance/{id}/edit/', [MaintenanceRecordsController::class, 'edit'])->name('maintenance.edit');
+    Route::put('maintenance/{maintenanceRecords}/update/', [MaintenanceRecordsController::class, 'update'])->name('maintenance.update');
+    Route::delete('maintenance/{id}/delete/', [MaintenanceRecordsController::class, 'destroy'])->name('maintenance.destroy');
+
+    # Software Management Routes
+    Route::get('software/create/{computer_id}/', [SoftwareController::class, 'create'])->name('software.create');
+    Route::post('software/store/', [SoftwareController::class, 'store'])->name('software.store');
+    Route::get('software/{id}/edit/', [SoftwareController::class, 'edit'])->name('software.edit');
+    Route::put('software/{softwareRecords}/update/', [SoftwareController::class, 'update'])->name('software.update');
+    Route::delete('software/{id}/delete/', [SoftwareController::class, 'destroy'])->name('software.destroy');
 });
 
 require __DIR__.'/settings.php';

@@ -1,8 +1,9 @@
 import { ButtonDelete } from '@/components/button-delete';
 import ButtonIcon from '@/components/button-icon';
 import { index, edit, destroy } from '@/routes/computer';
-import { destroy as hardware_destroy, edit as hardware_edit } from '@/routes/hardware';
-import { create } from '@/routes/hardware'
+import { destroy as hardware_destroy, edit as hardware_edit, create as hardware_create } from '@/routes/hardware';
+import { destroy as maintenance_destroy, edit as maintenance_edit, create as maintenance_create } from '@/routes/maintenance';
+import { } from '@/routes/hardware'
 import { Computers } from '@/types/entity';
 import { Link } from '@inertiajs/react';
 import { Plus, Edit } from 'lucide-react';
@@ -11,15 +12,15 @@ type ProsComputerShow = {
     computer: Computers;
     isAdmin: boolean;
 }
-export default function ComputerShow({ computer, isAdmin}: ProsComputerShow) {
+export default function ComputerShow({ computer, isAdmin }: ProsComputerShow) {
 
     function formatDate(date?: string | null) {
         if (!date) return '-';
-            try {
-                return new Date(date).toLocaleString('pt-BR');
-            } catch (e) {
-                return date;
-            }
+        try {
+            return new Date(date).toLocaleString('pt-BR');
+        } catch (e) {
+            return date;
+        }
     }
 
     return (
@@ -34,15 +35,15 @@ export default function ComputerShow({ computer, isAdmin}: ProsComputerShow) {
                         Voltar
                     </Link>
                     {isAdmin &&
-                    <> 
-                        <Link href={edit.url(computer?.id)} className="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm text-white hover:opacity-90">
-                            <Edit size={16} className="m-1" />
-                            Editar
-                        </Link>
-                        <div className="fixed z-12 bottom-1 right-2 z-10">
-                            <ButtonDelete url={destroy.url(computer.id)} size={20}/>
-                        </div>
-                    </>}
+                        <>
+                            <Link href={edit.url(computer?.id)} className="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm text-white hover:opacity-90">
+                                <Edit size={16} className="m-1" />
+                                Editar
+                            </Link>
+                            <div className="fixed z-12 bottom-1 right-2 z-10">
+                                <ButtonDelete url={destroy.url(computer.id)} size={20} />
+                            </div>
+                        </>}
                 </div>
             </div>
 
@@ -120,32 +121,32 @@ export default function ComputerShow({ computer, isAdmin}: ProsComputerShow) {
             <div className="mt-8 grid gap-6 md:grid-cols-3 relative">
                 <section className="md:col-span-1 rounded-2xl border p-4 relative">
                     <h4 className="font-medium mb-3">Hardware</h4>
-                    <ButtonIcon Icon={Plus} href={create.url(computer.id)} isAbsolute={true} top={10} right={10} size={30}/>
+                    <ButtonIcon Icon={Plus} href={hardware_create.url(computer.id)} isAbsolute={true} top={10} right={10} size={30} />
                     {computer?.hardware_components && computer.hardware_components.length > 0 ? (
                         <ul className="space-y-3">
-                        {computer.hardware_components.map((h) => (
-                            <li key={h.id} className="rounded-lg border p-3">
-                            <div className="flex items-center justify-between">
-                                <div style={{ width: '100%'}}>
-                                    <div className="font-medium w-100">{h.modelo}</div>
-                                    {h.status && <div className="text-sm text-gray-500">Modelo: {h.status}</div>}
-                                    {h.capacidade && <div className="text-sm text-gray-500">Capacidade: {h.capacidade} (GB)</div>}
-                                    
-                                    {isAdmin && (
-                                        <div className="flex justify-between gap-2 mt-2 ">
-                                            <Link
-                                                href={hardware_edit.url(h.id)}
-                                                className="inline-flex justify-between rounded-md bg-blue-600 px-2 py-1 text-sm text-white hover:opacity-90"
-                                            >
-                                                <Edit size={16} className="m-1" />
-                                            </Link>
-                                            <ButtonDelete url={hardware_destroy.url(h.id)} size={10}/>
+                            {computer.hardware_components.map((h) => (
+                                <li key={h.id} className="rounded-lg border p-3">
+                                    <div className="flex items-center justify-between">
+                                        <div style={{ width: '100%' }}>
+                                            <div className="font-medium w-100">{h.modelo}</div>
+                                            {h.status && <div className="text-sm text-gray-500">Modelo: {h.status}</div>}
+                                            {h.capacidade && <div className="text-sm text-gray-500">Capacidade: {h.capacidade} (GB)</div>}
+
+                                            {isAdmin && (
+                                                <div className="flex justify-between gap-2 mt-2 ">
+                                                    <Link
+                                                        href={hardware_edit.url(h.id)}
+                                                        className="inline-flex justify-between rounded-md bg-blue-600 px-2 py-1 text-sm text-white hover:opacity-90"
+                                                    >
+                                                        <Edit size={16} className="m-1" />
+                                                    </Link>
+                                                    <ButtonDelete url={hardware_destroy.url(h.id)} size={10} />
+                                                </div>
+                                            )}
                                         </div>
-                                    )}
-                                </div>
-                            </div>
-                            </li>
-                        ))}
+                                    </div>
+                                </li>
+                            ))}
                         </ul>
                     ) : (
                         <p className="text-sm text-gray-500">Nenhum componente cadastrado.</p>
@@ -154,16 +155,27 @@ export default function ComputerShow({ computer, isAdmin}: ProsComputerShow) {
 
                 <section className="md:col-span-1 rounded-2xl border p-4 relative">
                     <h4 className="font-medium mb-3">Manutenções</h4>
-                    <ButtonIcon Icon={Plus} href={''} isAbsolute={true} top={10} right={10} size={30}/>
+                    <ButtonIcon Icon={Plus} href={maintenance_create.url(computer.id)} isAbsolute={true} top={10} right={10} size={30} />
                     {computer?.maintenance_records && computer.maintenance_records.length > 0 ? (
                         <ul className="space-y-3">
-                        {computer.maintenance_records.map((m) => (
-                            <li key={m.id} className="rounded-lg border p-3">
-                            <div className="text-sm font-medium">{formatDate(m.created_at)}</div>
-                            <div className="text-sm text-gray-700">{m.descricao}</div>
-                            {m.user_id && <div className="text-xs text-gray-500 mt-1">Realizado por: {m.user_id}</div>}
-                            </li>
-                        ))}
+                            {computer.maintenance_records.map((m) => (
+                                <li key={m.id} className="rounded-lg border p-3">
+                                    <div className="text-sm font-medium">{formatDate(m.created_at)}</div>
+                                    <div className="text-sm text-gray-700">{m.descricao}</div>
+                                    {m.user_id && (<div className="text-xs text-gray-500 mt-1">Realizado por: {m.user_id}</div>)}
+                                    {isAdmin && (
+                                        <div className="flex justify-between gap-2 mt-2 ">
+                                            <Link
+                                                href={maintenance_edit.url(m.id)}
+                                                className="inline-flex justify-between rounded-md bg-blue-600 px-2 py-1 text-sm text-white hover:opacity-90"
+                                            >
+                                                <Edit size={16} className="m-1" />
+                                            </Link>
+                                            <ButtonDelete url={maintenance_destroy.url(m.id)} size={10} />
+                                        </div>
+                                    )}
+                                </li>
+                            ))}
                         </ul>
                     ) : (
                         <p className="text-sm text-gray-500">Sem registros de manutenção.</p>
@@ -172,14 +184,14 @@ export default function ComputerShow({ computer, isAdmin}: ProsComputerShow) {
 
                 <section className="md:col-span-1 rounded-2xl border p-4 relative">
                     <h4 className="font-medium mb-3">Software</h4>
-                    <ButtonIcon Icon={Plus} href={''} isAbsolute={true} top={10} right={10} size={30}/>
+                    <ButtonIcon Icon={Plus} href={''} isAbsolute={true} top={10} right={10} size={30} />
                     {computer?.software && computer.software.length > 0 ? (
                         <ul className="space-y-3">
-                        {computer.software.map((s) => (
-                            <li key={s.id} className="rounded-lg border p-3">
-                            <div className="font-medium">{s.nome}</div>
-                            </li>
-                        ))}
+                            {computer.software.map((s) => (
+                                <li key={s.id} className="rounded-lg border p-3">
+                                    <div className="font-medium">{s.nome}</div>
+                                </li>
+                            ))}
                         </ul>
                     ) : (
                         <p className="text-sm text-gray-500">Nenhum software cadastrado.</p>

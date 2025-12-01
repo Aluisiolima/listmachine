@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Requests;
-
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreMaintenanceRecordsRequest extends FormRequest
 {
@@ -11,7 +11,7 @@ class StoreMaintenanceRecordsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -22,7 +22,11 @@ class StoreMaintenanceRecordsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "computer_id"     => "required|integer|exists:computers,id",
+            "user_id"         => "required|integer|exists:users,id",
+            "tipo"            => "required|string|max:50",
+            "descricao"       => "required|string|max:255",
+            "proxima_revisao" => "required|date"
         ];
     }
 }

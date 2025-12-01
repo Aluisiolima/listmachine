@@ -19,4 +19,9 @@ class MaintenanceRecords extends Model
         "descricao",
         "proxima_revisao"
     ];
+
+    public function computer()
+    {
+        return $this->belongsTo(Computer::class);
+    }
 }
