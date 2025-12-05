@@ -25,7 +25,7 @@ return new class extends Migration
         });
 
         Schema::table('qrcodes', function (Blueprint $table) {
-            $table->foreignId('computer_id')->constrained()->restrictOnDelete();
+            $table->foreignId('computer_id')->constrained()->cascadeOnDelete();
         });
     }
 

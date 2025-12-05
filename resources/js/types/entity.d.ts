@@ -22,6 +22,7 @@ export interface Computers {
     maintenance_records?: MaintenanceRecords[];
     software?: Software[];
     locations: Locations;
+    qrcode: QrCodes;
 };
 
 export interface HardwareComponents {
@@ -58,9 +59,10 @@ export interface QrCodes {
     id: number;
     roles_id: number;
     is_active: boolean;
+    url: string;
     created_at?: string | null;
     updated_at?: string | null;
-    computer_id: number;
+    computer: Computers;
 };
 
 export interface RolesQrCodes {

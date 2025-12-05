@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreQrcodeRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StoreQrcodeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -22,7 +23,8 @@ class StoreQrcodeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'roles_id'    => 'required|exists:roles_qrcodes,id',
+            'computer_id' => 'required|exists:computers,id',
         ];
     }
 }

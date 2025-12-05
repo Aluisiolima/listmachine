@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('roles_id')->constrained('roles_qrcodes')->restrictOnDelete();
             $table->boolean('is_active')->default(true);
+            $table->string('path');
             $table->timestamps();
         });
     }

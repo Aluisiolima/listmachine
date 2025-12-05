@@ -6,6 +6,7 @@ import { Head } from '@inertiajs/react';
 import { Plus } from 'lucide-react'
 import { ComputerCard } from './computer/computer-card';
 import { Computers } from '@/types/entity';
+import { create } from '@/routes/computer';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -22,7 +23,7 @@ type ProsDashboard = {
 
 export default function Dashboard({ isAdmin, computers, component} : ProsDashboard) {
     const components: Record<string, React.ReactNode> = {
-        "computer-card": <ComputerCard isAdmin={isAdmin} computers={computers} childComponent={<ButtonIcon Icon={Plus} href='/computer'></ButtonIcon>}/>,
+        "computer-card": <ComputerCard isAdmin={isAdmin} computers={computers} childComponent={<ButtonIcon Icon={Plus} href={create.url()}></ButtonIcon>}/>,
     };
 
     return (

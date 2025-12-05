@@ -8,12 +8,15 @@ import { } from '@/routes/hardware'
 import { Computers } from '@/types/entity';
 import { Link } from '@inertiajs/react';
 import { Plus, Edit } from 'lucide-react';
+import { useState } from 'react';
+import { QrModal } from '@/components/qrcode'
 
 type ProsComputerShow = {
     computer: Computers;
     isAdmin: boolean;
 }
 export default function ComputerShow({ computer, isAdmin }: ProsComputerShow) {
+    const [open, setOpen] = useState(false)
 
     function formatDate(date?: string | null) {
         if (!date) return '-';
@@ -116,6 +119,16 @@ export default function ComputerShow({ computer, isAdmin }: ProsComputerShow) {
                         <h3 className="text-sm font-medium">Softwares</h3>
                         <p className="mt-2 text-3xl font-semibold">{computer?.software?.length ?? 0}</p>
                     </div>
+                    {isAdmin && (<div className="p-6">
+                        <button
+                            className="bg-blue-600 text-white px-4 py-2 rounded"
+                            onClick={() => setOpen(true)}
+                        >
+                            Mostrar QR Code
+                        </button>
+
+                        {open && <QrModal qrcode={computer.qrcode} onClose={() => setOpen(false)} computer_name={computer.nome} />}
+                    </div>)}
                 </aside>
             </div>
 

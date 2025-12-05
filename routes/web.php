@@ -3,6 +3,7 @@
 use App\Http\Controllers\ComputerController;
 use App\Http\Controllers\HardwareComponentsController;
 use App\Http\Controllers\MaintenanceRecordsController;
+use App\Http\Controllers\QrcodeController;
 use App\Http\Controllers\SoftwareController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -48,6 +49,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('software/{id}/edit/', [SoftwareController::class, 'edit'])->name('software.edit');
     Route::put('software/{software}/update/', [SoftwareController::class, 'update'])->name('software.update');
     Route::delete('software/{id}/delete/', [SoftwareController::class, 'destroy'])->name('software.destroy');
+
+    Route::get('qrcode/{computer_id}/create', [QrcodeController::class, 'store'])->name('qrcode.store');
+    Route::get('qrcode/{id}/', [QrcodeController::class, 'show'])->name('qrcode.show');
 });
 
 require __DIR__.'/settings.php';

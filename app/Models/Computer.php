@@ -42,5 +42,8 @@ class Computer extends Model
         return $this->belongsTo(Locations::class, 'locations_id', 'id');
     }
 
-
+    public function qrcode()
+    {
+        return $this->hasOne(Qrcode::class, 'computer_id');
+    }
 }

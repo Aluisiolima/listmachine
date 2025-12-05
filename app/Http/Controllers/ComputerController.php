@@ -46,7 +46,10 @@ class ComputerController extends Controller
     public function store(StoreComputerRequest $request)
     {
         Computer::create($request->validated());
-        return redirect()->route('computer.index');
+
+        return redirect()->route('qrcode.store', [
+            'computer_id' => Computer::latest()->first()->id
+        ])->with('success', 'Computador criado com sucesso!');
     }
 
     /**
@@ -58,7 +61,8 @@ class ComputerController extends Controller
             'hardware_components',
             'maintenance_records',
             'software',
-            'locations'
+            'locations',
+            'qrcode'
         ])->find($id);
 
         if ($computer == null) return redirect('dashboard');
