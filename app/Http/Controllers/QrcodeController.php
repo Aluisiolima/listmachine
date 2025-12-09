@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQrcodeRequest;
 use App\Http\Requests\UpdateQrcodeRequest;
+use App\Models\Computer;
 use App\Models\Qrcode;
 
+use Endroid\QrCode\Label\Label;
 use Illuminate\Support\Facades\Storage;
 use Endroid\QrCode\Color\Color;
 use Endroid\QrCode\Encoding\Encoding;
@@ -55,11 +57,12 @@ class QrcodeController extends Controller
             roundBlockSizeMode: RoundBlockSizeMode::Margin,
             foregroundColor: new Color(0, 0, 0),
             backgroundColor: new Color(255, 255, 255)
+
         );
 
         $writer = new PngWriter();
 
-        $result = $writer->write($qrCode);
+        $result = $writer->write($qrCode, label: new Label(Computer::findOrFail($computer_id, ['nome'])->nome));
 
         Storage::disk('public')->put($filePath, $result->getString());
 
