@@ -41,7 +41,7 @@ RUN php artisan config:cache && \
     php artisan route:cache && \
     php artisan view:cache
 
-RUN cp -r public/build /var/www/html/public/
+RUN cp -r public/ /var/www/html/public/
 
 # # Permissões
 RUN chown -R www-data:www-data /var/www
