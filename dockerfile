@@ -28,7 +28,6 @@ COPY . .
 
 # Instala dependências JS e constrói assets
 RUN if [ -f package-lock.json ] || [ -f yarn.lock ]; then npm ci; else npm install; fi
-RUN npm run build || echo "npm run build retornou não-zero (verifique scripts)"
 
 # Instala dependências PHP (produção)
 RUN composer install \
@@ -36,6 +35,8 @@ RUN composer install \
     --optimize-autoloader \
     --prefer-dist \
     --no-interaction
+
+RUN npm run build || echo "npm run build retornou não-zero (verifique scripts)"
 
 # Cache de artisan (se aplicável)
 RUN php artisan config:cache || true
