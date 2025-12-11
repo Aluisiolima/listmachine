@@ -46,7 +46,7 @@ services:
 
 networks:
   listmachine:
-    driver: bridge
+    external: true
 
 volumes:
   pgsql_data:
