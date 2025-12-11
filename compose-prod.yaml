@@ -2,9 +2,7 @@ version: '3.9'
 
 services:
   app:
-    build:
-      context: '.'
-      dockerfile: dockerfile
+    image: aluiznt/listmachine:latest 
     container_name: listmachine_app
     restart: always
     environment:
@@ -19,9 +17,9 @@ services:
       - .env
 
     volumes:
-      - './storage:/var/www/storage'
-      - './bootstrap/cache:/var/www/bootstrap/cache'
-      - 'listmachine_public:/var/www/html/public:ro'
+      - './storage:/var/www/storage:rw'
+      - './bootstrap/cache:/var/www/bootstrap/cache:rw'
+      - 'listmachine_public:/var/www/html/public:rw'
     depends_on:
       - pgsql
     networks:
