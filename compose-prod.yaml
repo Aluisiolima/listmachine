@@ -15,8 +15,8 @@ services:
       DB_DATABASE: '${DB_DATABASE}'
       DB_USERNAME: '${DB_USERNAME}'
       DB_PASSWORD: '${DB_PASSWORD}'
-    env-file:
-      - '.env'
+    env_file:
+      - .env
 
     volumes:
       - './storage:/var/www/storage'
