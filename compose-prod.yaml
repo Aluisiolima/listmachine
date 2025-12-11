@@ -15,14 +15,16 @@ services:
       DB_DATABASE: '${DB_DATABASE}'
       DB_USERNAME: '${DB_USERNAME}'
       DB_PASSWORD: '${DB_PASSWORD}'
+
     volumes:
-      - './:/var/www'
-      - './public:/var/www/html/public'
+      - './storage:/var/www/storage'
+      - './bootstrap/cache:/var/www/bootstrap/cache'
+      - 'listmachine_public:/var/www/html/public:ro'
     depends_on:
       - pgsql
     networks:
       - listmachine
-      - web 
+      - web
 
   pgsql:
     image: 'postgres:18-alpine'
@@ -51,3 +53,6 @@ networks:
 volumes:
   pgsql_data:
     driver: local
+
+  listmachine_public:
+    external: true
