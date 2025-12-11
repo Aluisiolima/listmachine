@@ -25,6 +25,7 @@ services:
       - pgsql
     networks:
       - listmachine
+      - web 
 
   pgsql:
     image: 'postgres:18-alpine'
@@ -46,6 +47,8 @@ services:
 
 networks:
   listmachine:
+    external: true
+  web:
     external: true
 
 volumes:
