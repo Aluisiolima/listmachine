@@ -62,14 +62,6 @@ RUN set -e; \
         php artisan view:cache || true; \
     fi
 
-# Copia os arquivos públicos para uma pasta dedicada que será montada no volume
-# usa cp -a para copiar inclusive arquivos ocultos dentro de public
-RUN mkdir -p /build_public \
-    && if [ -d public ] && [ "$(ls -A public)" ]; then cp -a public/. /build_public/ || true; fi
-
-# Ajusta permissões
-RUN chown -R www-data:www-data /var/www /build_public || true
-
 # ===========================
 # ETAPA 2 — RUNTIME
 # ===========================
