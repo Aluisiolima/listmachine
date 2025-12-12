@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   app:
-    image: aluiznt/listmachine:latest 
+    image: aluiznt/listmachine:latest
     container_name: listmachine_app
     restart: always
     environment:
@@ -15,16 +15,13 @@ services:
       DB_PASSWORD: '${DB_PASSWORD}'
     env_file:
       - .env
-
+    # Monta o código do projeto em /var/www (mesmo path que o nginx usa)
     volumes:
-      - './storage:/var/www/storage:rw'
-      - './bootstrap/cache:/var/www/bootstrap/cache:rw'
-      - 'listmachine_public:/var/www/html/public:rw'
+      - ./:/var/www:rw
     depends_on:
       - pgsql
     networks:
       - listmachine
-      - web
 
   pgsql:
     image: 'postgres:18-alpine'
@@ -44,15 +41,26 @@ services:
       retries: 5
       timeout: 5s
 
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: listmachine_nginx
+    restart: always
+    volumes:
+      # Monta o mesmo código, apenas leitura para nginx
+      - ./:/var/www:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    networks:
+      - listmachine
+
 networks:
   listmachine:
-    external: true
+    driver: local
+
   web:
     external: true
 
 volumes:
   pgsql_data:
     driver: local
-
-  listmachine_public:
-    external: true
