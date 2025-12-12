@@ -56,6 +56,8 @@ services:
       - web
 
 networks:
+  listmachine:
+    external: true
   web:
     external: true
 
