@@ -15,10 +15,7 @@ services:
       DB_PASSWORD: '${DB_PASSWORD}'
     env_file:
       - .env
-    # Monta o código do projeto em /var/www (mesmo path que o nginx usa)
-    volumes:
-      - ./public:/var/www/public
-      - ./storage:/var/www/storage
+
     depends_on:
       - pgsql
     networks:
