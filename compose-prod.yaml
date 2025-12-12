@@ -16,8 +16,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./storage:/var/www/storage:rw
-      - ./bootstrap:/var/www/bootstrap/cache:rw
+      - storage:/var/www/storage
       - public:/var/www/public
     depends_on:
       - pgsql
@@ -47,8 +46,9 @@ services:
     container_name: listmachine_web
     restart: always
     volumes:
-      - public:/var/www:ro
+      - public:/var/www/public:ro
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - storage:/var/www/storage
     depends_on:
       - app
     networks:
