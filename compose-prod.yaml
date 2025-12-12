@@ -53,11 +53,9 @@ services:
       - app
     networks:
       - listmachine
+      - web
 
 networks:
-  listmachine:
-    driver: local
-
   web:
     external: true
 
