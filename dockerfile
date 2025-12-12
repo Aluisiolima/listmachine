@@ -1,4 +1,3 @@
-agora ajuste o docker file 
 # ===========================
 # ETAPA 1 — BUILD (PHP + NODE)
 # ===========================
