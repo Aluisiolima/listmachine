@@ -43,7 +43,7 @@ services:
 
   nginx:
     image: nginx:1.25-alpine
-    container_name: listmachine_nginx
+    container_name: listmachine_web
     restart: always
     volumes:
       # Monta o mesmo código, apenas leitura para nginx
