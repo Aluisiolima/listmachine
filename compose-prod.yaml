@@ -16,8 +16,8 @@ services:
     env_file:
       - .env
     volumes:
-      - storage_data:/var/www/storage:rw
-      - bootstrap_cache:/var/www/bootstrap/cache:rw
+      - ./storage:/var/www/storage:rw
+      - ./bootstrap:/var/www/bootstrap/cache:rw
       - public:/var/www/public
     depends_on:
       - pgsql
