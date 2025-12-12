@@ -15,7 +15,10 @@ services:
       DB_PASSWORD: '${DB_PASSWORD}'
     env_file:
       - .env
-
+    volumes:
+      - storage_data:/var/www/storage:rw
+      - bootstrap_cache:/var/www/bootstrap/cache:rw
+      - public:/var/www/public
     depends_on:
       - pgsql
     networks:
@@ -44,7 +47,7 @@ services:
     container_name: listmachine_web
     restart: always
     volumes:
-      - ./:/var/www:ro
+      - public:/var/www:ro
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       - app
@@ -60,4 +63,6 @@ networks:
 
 volumes:
   pgsql_data:
+    driver: local
+  public:
     driver: local
