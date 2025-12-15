@@ -23,7 +23,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     # Computer Management Routes
     Route::get('dashboard/computer/', [ComputerController::class, 'index'])->name('computer.index');
     Route::get('computer/create/', [ComputerController::class, 'create'])->name('computer.create');
-    Route::get('computer/{id}/show/', [ComputerController::class, 'show'])->name('computer.show');
     Route::post('computer/store/', [ComputerController::class, 'store'])->name('computer.store');
     Route::delete('computer/{id}/delete/', [ComputerController::class, 'destroy'])->name('computer.destroy');
     Route::get('computer/{id}/edit/', [ComputerController::class, 'edit'])->name('computer.edit');
@@ -53,5 +52,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('qrcode/{computer_id}/create', [QrcodeController::class, 'store'])->name('qrcode.store');
     Route::get('qrcode/{id}/', [QrcodeController::class, 'show'])->name('qrcode.show');
 });
+
+Route::get('computer/{id}/show/', [ComputerController::class, 'show'])->name('computer.show');
 
 require __DIR__.'/settings.php';

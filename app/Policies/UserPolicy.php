@@ -64,8 +64,8 @@ class UserPolicy
         return false;
     }
 
-    public function check_level(User $user, RolesUser $rolesUser): bool
+    public function check_level(User|null $user, RolesUser $rolesUser): bool
     {
-        return $user->role?->id === $rolesUser->id;
+        return $user?->role?->id === $rolesUser->id;
     }
 }

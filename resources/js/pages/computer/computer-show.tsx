@@ -135,7 +135,7 @@ export default function ComputerShow({ computer, isAdmin }: ProsComputerShow) {
             <div className="mt-8 grid gap-6 md:grid-cols-3 relative">
                 <section className="md:col-span-1 rounded-2xl border p-4 relative">
                     <h4 className="font-medium mb-3">Hardware</h4>
-                    <ButtonIcon Icon={Plus} href={hardware_create.url(computer.id)} isAbsolute={true} top={10} right={10} size={30} />
+                    {isAdmin && <ButtonIcon Icon={Plus} href={hardware_create.url(computer.id)} isAbsolute={true} top={10} right={10} size={30} />}
                     {computer?.hardware_components && computer.hardware_components.length > 0 ? (
                         <ul className="space-y-3">
                             {computer.hardware_components.map((h) => (
@@ -169,7 +169,7 @@ export default function ComputerShow({ computer, isAdmin }: ProsComputerShow) {
 
                 <section className="md:col-span-1 rounded-2xl border p-4 relative">
                     <h4 className="font-medium mb-3">Manutenções</h4>
-                    <ButtonIcon Icon={Plus} href={maintenance_create.url(computer.id)} isAbsolute={true} top={10} right={10} size={30} />
+                    {isAdmin && <ButtonIcon Icon={Plus} href={maintenance_create.url(computer.id)} isAbsolute={true} top={10} right={10} size={30} />}
                     {computer?.maintenance_records && computer.maintenance_records.length > 0 ? (
                         <ul className="space-y-3">
                             {computer.maintenance_records.map((m) => (
@@ -198,7 +198,7 @@ export default function ComputerShow({ computer, isAdmin }: ProsComputerShow) {
 
                 <section className="md:col-span-1 rounded-2xl border p-4 relative">
                     <h4 className="font-medium mb-3">Software</h4>
-                    <ButtonIcon Icon={Plus} href={software_create.url(computer.id)} isAbsolute={true} top={10} right={10} size={30} />
+                    {isAdmin && <ButtonIcon Icon={Plus} href={software_create.url(computer.id)} isAbsolute={true} top={10} right={10} size={30} />}
                     {computer?.software && computer.software.length > 0 ? (
                         <ul className="space-y-3">
                             {computer.software.map((s) => (

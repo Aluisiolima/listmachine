@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   app:
-    image: aluiznt/listmachine:latest
+    image: aluiznt/listmachine:1.0
     container_name: listmachine_app
     restart: always
     environment:

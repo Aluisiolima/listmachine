@@ -49,12 +49,6 @@ RUN php artisan config:cache || true
 RUN php artisan route:cache || true
 RUN php artisan view:cache || true
 
-# Copia os arquivos públicos para uma pasta dedicada que será montada no volume
-RUN mkdir -p /build_public && cp -r public/* /build_public/ || true
-
-# Ajusta permissões
-RUN chown -R www-data:www-data /var/www /build_public
-
 # ===========================
 # ETAPA 2 — RUNTIME
 # ===========================
@@ -80,13 +74,6 @@ WORKDIR /var/www
 
 # Copia código PHP + vendor do stage build
 COPY --from=build /var/www /var/www
-
-# Copia public compilado para /var/www/html/public (ponto que será compartilhado com o volume)
-RUN mkdir -p /var/www/html/public
-COPY --from=build /build_public/ /var/www/html/public/
-
-# Ajusta permissões
-RUN chown -R www-data:www-data /var/www /var/www/html/public
 
 USER www-data
 
